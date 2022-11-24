@@ -1,24 +1,63 @@
 #include<iostream>
+
 using namespace std;
-void SeqSearch(int Data[], int n, int x, int *idx);
-int main()
+
+int binary_search(int [ ], int, int);
+
+int main( )
 {
-int Data[]={23,26,30,50,55,65,69,78,80,98};
-int idx,x,i,jmlDat=10;
-cout<<"Elemen Array : ";
-for(i=0;i<jmlDat;i++)cout<<Data[i]<<" ";cout<<endl;
-cout<<"Masukan data yang akan dicari ?:";cin>>x;
-SeqSearch(Data,jmlDat,x,&idx);
-if(idx!=-1)
-cout<<"Data yang dicari berada pada indek "<<idx<<endl;
-else
-cout<<"Data yang dicari tidak ada dalam array"<<endl;
-}
-void SeqSearch(int Data[],int n,int x, int *idx)
-{
-int i=0;
-while(i<n-1 && Data[i]<x)i++;
-if(Data[i]==x) *idx=i;
-else *idx=-1;
+    const int array_size=10;
+    int angkaarray[array_size]={0, 6, 9, 12, 20, 23, 29, 32, 47, 79};
+
+    cout<<"Isi dari array adalah : "<<endl;
+    cout<<"\nArray:"<<"\t\t Data:"<<endl;
+    for (int count=0; count<array_size; count++)
+    {
+        cout<<"array["<<count<<"]"<<"\t\t";
+        cout<<angkaarray[count]<<endl;
+    }
+
+    int mencari_element=0;
+    int flag=0;
+
+    cout<<"\n\n masukan data yang anda cari = ";
+    cin>>mencari_element;
+    flag = binary_search(angkaarray, array_size, mencari_element);
+
+    if(flag != -1)
+    {
+        cout<<"\ndata tersebut ditemukan pada posisi: array[ "<<flag<<"]";
+    }
+    else
+    {
+        cout<<"\n data tersebut tidak ditemukan ";
+    }
+    return 0;
 }
 
+int binary_search(int dataarray[], int array_size, int element)
+{
+    int first=0;
+    int last=array_size-1;
+    int middle;
+    int flag=-1;
+
+    while(first<=last)
+    {
+        middle=(first+last)/2;
+        if(dataarray[middle]==element)
+        {
+            flag=middle;
+            break;
+        }
+        else if(dataarray[middle]>element)
+        {
+            last=middle-1;
+        }
+        else
+        {
+            first=middle+1;
+        }
+    }
+    return flag;
+}
